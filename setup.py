@@ -75,7 +75,8 @@ def render_templates_leaf(mustache_hash, src, dst):
     with src.open(mode='r') as src_file:
         content = src_file.read()
     with dst.open(mode='w') as dst_file:
-        dst_file.write(pystache.render(content, mustache_hash))
+        renderer = pystache.Renderer(missing_tags=pystache.common.MissingTags.ignore)
+        dst_file.write(renderer.render(content, mustache_hash))
 
 
 def render_templates(mustache_hash, src, dst):
